@@ -3,8 +3,17 @@ const jwt = require('jsonwebtoken')
 const verifyToken = (req, res, next) => {
 
     const pathWithAuth = [
-        '/users/update/',
-        '/users/delete/',
+        '/users/update',
+        '/users/delete',
+        '/products/create',
+        '/products/update',
+        '/products/delete',
+        '/reviews/create',
+        '/reviews/delete',
+        '/categories/create',
+        '/categories/update',
+        '/categories/delete',
+        
     ]
 
     const count = pathWithAuth.reduce((p,c)=>p+(req.originalUrl.includes(c)), 0)
