@@ -4,10 +4,11 @@ const router = express.Router();
 //CREATE PRODUCT
 router.post("/create", async (req, res) => {
   const product = new productModel({
-    name: req.body.name,
-    username: req.body.username,
-    location: req.body.location,
     description: req.body.description,
+    price: req.body.price,
+    brand: req.body.brand,
+    specs: req.body.specs,
+    category: req.body.category,
   });
   try {
     await product.save();
