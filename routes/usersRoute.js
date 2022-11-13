@@ -4,10 +4,10 @@ const router = express.Router();
 //CREATE USER
 router.post("/create", async (req, res) => {
   const user = new userModel({
-    name: req.body.name,
-    username: req.body.username,
-    location: req.body.location,
-    description: req.body.description,
+    fullname: req.body.fullname,
+    email: req.body.email,
+    password: req.body.password,
+    phone: req.body.phone,
   });
   try {
     await user.save();
@@ -19,7 +19,7 @@ router.post("/create", async (req, res) => {
 //READ ONE USER BY USER ID
 router.get("/readOne/:id", async (req, res) => {
   try {
-    const user = await userModel.findById(req.params.id);
+    const user = await userModel.findById(req.params.id).select('-password');
     res.status(200).json({
       result: user,
     });
@@ -30,7 +30,7 @@ router.get("/readOne/:id", async (req, res) => {
 //READ ALL USERS
 router.get("/readAll", async (req, res) => {
   try {
-    let users = await userModel.find();
+    let users = await userModel.find().select('-password');
     res.status(200).json({
       result: users,
     });
