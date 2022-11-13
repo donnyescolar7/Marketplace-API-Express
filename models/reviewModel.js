@@ -1,12 +1,13 @@
 const mongoose = require("mongoose");
-//const ObjectId = require("mongodb").ObjectId;
+const ObjectId = require("mongodb").ObjectId;
 
 const reviewModel = new mongoose.Schema({
-  name: { type: String, required: true }, //name displayed on screen
-  username: { type: String, required: true }, //unique username
-  location: { type: String, default: "" }, //where the user lives
-  description: { type: String, default: "" }, //a brief description of the user
-  date: { type: Date, default: Date.now }, //the date of creation of the user
+  user: { type: ObjectId, required: true }, //id of the user writing the review
+  product: { type: ObjectId, required: true }, //id of the product being reviewed
+  stars: { type: Number, required: true }, //number of stars the user gives to the product
+  comment: { type: String, required: true }, //short title of the review
+  text: { type: String, required: true }, //a brief description of the user experience with the product
+  date: { type: Date, default: Date.now }, //the date of creation of the review
 });
 
 module.exports = mongoose.model("Review", reviewModel);

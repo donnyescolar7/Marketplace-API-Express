@@ -4,10 +4,7 @@ const router = express.Router();
 //CREATE CATEGORY
 router.post("/create", async (req, res) => {
   const category = new categoryModel({
-    name: req.body.name,
-    username: req.body.username,
-    location: req.body.location,
-    description: req.body.description,
+    category: req.body.category
   });
   try {
     await category.save();
