@@ -7,6 +7,7 @@ const userModel = new mongoose.Schema({
   location: { type: String, default: "" }, //where the user lives
   description: { type: String, default: "" }, //a brief description of the user
   date: { type: Date, default: Date.now }, //the date of creation of the user
+  password: { type: String, min:6, require:true}
 });
 
 module.exports = mongoose.model("User", userModel);

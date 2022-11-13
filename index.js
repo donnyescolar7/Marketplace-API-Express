@@ -3,6 +3,9 @@ const express = require('express');
 const mongoose = require('mongoose');
 const app = express();
 
+//MIDDLEWARE AUTH
+const verifyToken = require('./middleware/authMiddleware');
+
 // MIDDLEWARE JSON
 app.use(express.json());
 
@@ -20,16 +23,19 @@ mongoose.connect(
 
 // ROUTES DECLARATION
 const usersRoute = require('./routes/usersRoute')
-app.use("/users", usersRoute)
+app.use("/users", verifyToken, usersRoute)
 
 const productsRoute = require('./routes/productsRoute')
-app.use("/products", productsRoute)
+app.use("/products", verifyToken, productsRoute)
 
 const categoriesRoute = require('./routes/categoriesRoute')
-app.use("/categories", categoriesRoute)
+app.use("/categories", verifyToken, categoriesRoute)
 
 const reviewsRoute = require('./routes/reviewsRoute')
-app.use("/reviews", reviewsRoute)
+app.use("/reviews", verifyToken, reviewsRoute)
+
+const authRoute = require('./routes/authRoute')
+app.use("/auth", verifyToken, authRoute)
 
 // OPENING APP PORT
 app.listen(3000, () => console.log(`\nServer Started at ${3000}`))
