@@ -7,8 +7,6 @@ const verifyToken = (req, res, next) => {
         '/users/delete/',
     ]
 
-    //return res.status(401).json({path: req.path })
-
     const count = pathWithAuth.reduce((p,c)=>p+(req.originalUrl.includes(c)), 0)
 
     if(count == 0) return next();
@@ -16,7 +14,7 @@ const verifyToken = (req, res, next) => {
     const token = req.header('auth-token')
     if (!token) return res.status(401).json({ error: 'Token nulo' })
     try {
-        const verified = jwt.verify(token, process.env.TOKEN_SECRET)
+        const verified = jwt.verify(token, "secret")
         req.user = verified
         next()
     } catch (error) {
