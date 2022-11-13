@@ -13,7 +13,6 @@ const verifyToken = (req, res, next) => {
         '/categories/create',
         '/categories/update',
         '/categories/delete',
-        
     ]
 
     const count = pathWithAuth.reduce((p,c)=>p+(req.originalUrl.includes(c)), 0)
