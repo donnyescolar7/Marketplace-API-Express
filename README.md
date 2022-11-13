@@ -7,7 +7,7 @@
 Un proyecto para la asignatura Desarrollo de Aplicaciones Web Backend
 
 ## Como usar?
-- Clone the repo
-- Install dependencies using $npm i express mongoose nodemon
-- Run the app using $npm start
-- Have fun using the Amazonas API!
+- Clonar el repositorio
+- Instalar las dependencias usando el comando $npm i express mongoose nodemon
+- Ejecutar la aplicación usando $npm start
+- Diviertase utilizando la API Amazonas!
