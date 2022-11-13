@@ -4,10 +4,10 @@ const router = express.Router();
 //CREATE REVIEW
 router.post("/create", async (req, res) => {
   const review = new reviewModel({
-    name: req.body.name,
-    username: req.body.username,
-    location: req.body.location,
-    description: req.body.description,
+    user: req.body.user,
+    stars: req.body.stars,
+    comment: req.body.comment,
+    text: req.body.text,
   });
   try {
     await review.save();
