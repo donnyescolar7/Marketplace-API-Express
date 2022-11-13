@@ -3,6 +3,7 @@ const userModel = require("../models/userModel");
 const router = express.Router();
 //CREATE USER
 router.post("/create", async (req, res) => {
+  
   const user = new userModel({
     fullname: req.body.fullname,
     email: req.body.email,
