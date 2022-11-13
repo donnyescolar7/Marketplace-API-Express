@@ -1,5 +1,5 @@
 # Marketplace API Express
 ## Integrantes:
 * Arnaldo Benavides R.
-* Donny Escolar
-* Víctor Medina
+* Donny Escolar G.
+* Víctor Medina M.
