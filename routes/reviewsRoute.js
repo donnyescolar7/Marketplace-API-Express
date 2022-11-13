@@ -5,6 +5,7 @@ const router = express.Router();
 router.post("/create", async (req, res) => {
   const review = new reviewModel({
     user: req.body.user,
+    product: req.body.product,
     stars: req.body.stars,
     comment: req.body.comment,
     text: req.body.text,
