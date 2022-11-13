@@ -9,9 +9,7 @@ const verifyToken = (req, res, next) => {
 
     //return res.status(401).json({path: req.path })
 
-    const count = pathWithAuth.reduce((p,c)=>p+(req.path.includes(c)), 0)
-
-    console.log(req);
+    const count = pathWithAuth.reduce((p,c)=>p+(req.originalUrl.includes(c)), 0)
 
     if(count == 0) return next();
 
