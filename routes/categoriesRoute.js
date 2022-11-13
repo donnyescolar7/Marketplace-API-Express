@@ -5,7 +5,7 @@ const router = express.Router();
 router.post("/create", async (req, res) => {
   const category = new categoryModel({
     name: req.body.name,
-    categoryname: req.body.categoryname,
+    username: req.body.username,
     location: req.body.location,
     description: req.body.description,
   });
