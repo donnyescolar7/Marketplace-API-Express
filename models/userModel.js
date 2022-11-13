@@ -10,4 +10,6 @@ const userModel = new mongoose.Schema({
   password: { type: String, min:6, require:true}
 });
 
+userModel.index( { "email": 1 }, { unique: true } )
+
 module.exports = mongoose.model("User", userModel);

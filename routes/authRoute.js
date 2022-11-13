@@ -3,14 +3,15 @@ const userModel = require('../models/userModel');
 const router = require('./categoriesRoute');
 
 router.post('/login', async (req, res) => {
+    
     // validaciones
-    /*const usuario = userModel.findOne({
-        username: req.body.username
-    })*/
+    const usuario = await userModel.findOne({
+        email: req.body.email
+    })
 
-    const usuario = {
-        username: "donny",
-        password: "123456"
+    if(!usuario){
+        res.status(200).json({ message: "Usuario no existe" })
+        return
     }
 
     if(usuario.password != req.body.password){
