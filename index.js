@@ -1,29 +1,35 @@
-//require('dotenv').config();
-const usuario_routes = require('./routes/usuario');
-const producto_routes = require('./routes/producto');
-
+console.log("\nWelcome to Amazonas API");
 const express = require('express');
-//const mongoose = require('mongoose');
-//const mongoString = process.env.DATABASE_URL;
-
-//mongoose.connect(mongoString);
-//const database = mongoose.connection;
-
-/*database.on('error', (error) => {
-    console.log(error)
-})
-
-database.once('connected', () => {
-    console.log('Database Connected');
-})*/
-
+const mongoose = require('mongoose');
 const app = express();
 
+// MIDDLEWARE JSON
 app.use(express.json());
 
-app.listen(3000, () => {
-    console.log(`Server Started at ${3000}`)
+// MONGO CONNECTION
+mongoose.connect(
+    "mongodb+srv://vrmedina:admin@cluster0.9aoeewj.mongodb.net/Amazonas?retryWrites=true&w=majority"
+    )
+.then(() => {
+    console.log("\nSuccess: Connected to the database :)");
+})
+.catch((e) => {
+    console.log(e)
+    console.log("\nError: Couldn't connect to the database :'(")
 })
 
-app.use('/usuario', usuario_routes)
-app.use('/producto', producto_routes)
+// ROUTES DECLARATION
+const usersRoute = require('./routes/usersRoute')
+app.use("/users", usersRoute)
+
+const productsRoute = require('./routes/productsRoute')
+app.use("/products", productsRoute)
+
+const categoriesRoute = require('./routes/categoriesRoute')
+app.use("/categories", categoriesRoute)
+
+const reviewsRoute = require('./routes/reviewsRoute')
+app.use("/reviews", reviewsRoute)
+
+// OPENING APP PORT
+app.listen(3000, () => console.log(`\nServer Started at ${3000}`))
