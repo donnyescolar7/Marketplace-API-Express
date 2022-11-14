@@ -10,7 +10,7 @@ const userModel = new mongoose.Schema({
   password: { type: String, required: true }, //the user's password
   phone: { type: Number, default: 0 }, //the user's phone number
   date: { type: Date, default: Date.now }, //the date of creation of the user
-  password: { type: String, min:6, require:true}
+  password: { type: String, min:6, require:true},
 });
 
 //userModel.index( { "email": 1 }, { unique: true } )

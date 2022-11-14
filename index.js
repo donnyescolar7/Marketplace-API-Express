@@ -10,9 +10,7 @@ const verifyToken = require('./middleware/authMiddleware');
 app.use(express.json());
 
 // MONGO CONNECTION
-mongoose.connect(
-    "mongodb+srv://vrmedina:admin@cluster0.9aoeewj.mongodb.net/Amazonas?retryWrites=true&w=majority"
-    )
+mongoose.connect("mongodb+srv://vrmedina:admin@cluster0.9aoeewj.mongodb.net/Amazonas?retryWrites=true&w=majority")
 .then(() => {
     console.log("\nSuccess: Connected to the database :)");
 })
@@ -36,6 +34,9 @@ app.use("/reviews", verifyToken, reviewsRoute)
 
 const authRoute = require('./routes/authRoute')
 app.use("/auth", verifyToken, authRoute)
+
+const cartRoute = require('./routes/cartRoute')
+app.use("/cart", verifyToken, cartRoute)
 
 // OPENING APP PORT
 app.listen(3000, () => console.log(`\nServer Started at ${3000}`))

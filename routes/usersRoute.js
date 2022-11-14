@@ -1,9 +1,9 @@
 const express = require("express");
 const userModel = require("../models/userModel");
 const router = express.Router();
+
 //CREATE USER
 router.post("/create", async (req, res) => {
-  
   const user = new userModel({
     fullname: req.body.fullname,
     email: req.body.email,
@@ -17,6 +17,7 @@ router.post("/create", async (req, res) => {
     res.status(400).json({ message: error.message });
   }
 });
+
 //READ ONE USER BY USER ID
 router.get("/readOne/:id", async (req, res) => {
   try {
@@ -28,6 +29,7 @@ router.get("/readOne/:id", async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 });
+
 //READ ALL USERS
 router.get("/readAll", async (req, res) => {
   try {
@@ -39,6 +41,7 @@ router.get("/readAll", async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 });
+
 //UPDATE USER BY USER ID
 router.patch("/update/:id", async (req, res) => {
   try {
@@ -52,6 +55,7 @@ router.patch("/update/:id", async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 });
+
 //DELETE USER BY USER ID
 router.delete("/delete/:id", async (req, res) => {
   try {
