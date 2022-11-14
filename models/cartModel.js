@@ -7,4 +7,6 @@ const cartModel = new mongoose.Schema({
     date: { type: Date, default: Date.now },
 });
 
+cartModel.index({"product_id": 1, "user_id" : 1}, { unique: true })
+
 module.exports = mongoose.model("Cart", cartModel);
