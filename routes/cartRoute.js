@@ -4,6 +4,7 @@ const router = express.Router();
 const mongoose = require('mongoose');
 const productModel = require("../models/productModel");
 const userModel = require("../models/userModel");
+const historyModel = require("../models/historyModel");
 
 //GET PRODUCTS IN CART BY USER ID
 router.get("/getcart/:userid", async (req, res) => {
@@ -58,6 +59,47 @@ router.delete("/delete/:user_id/:product_id", async (req, res) => {
         res.status(200).json({
             result: "Producto se ha quitado del carrito",
         });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
+router.post("/purchasecart/:user_id", async (req, res) => {
+    try {
+
+        //Verify if user exists
+        const userExists = await userModel.findById(req.params.user_id);
+        if (!userExists) {
+            return res.status(401).json({ message: "Usuario no existe" });
+        }
+
+        const productsIdsInCart = await cartModel.find({ 
+            user_id: req.params.user_id
+        });
+
+        const products = await productModel.find({ _id : { $in: productsIdsInCart } });
+
+        const total = products.reduce((a,c)=>a+c.price,0);
+
+        const historyModel = new historyModel({
+            user_id: req.params.user_id,
+            products: products,
+            total: total,
+            date: Date.now()
+        });
+
+        const result = historyModel.save();
+
+        //Delete the products from the user's cart
+        await cartModel.deleteMany({ 
+                user_id: req.params.user_id
+            });
+        
+        res.status(200).json({
+            result: "Compra realizada",
+            data: result
+        });
+
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
