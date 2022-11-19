@@ -5,7 +5,6 @@ const productModel = new mongoose.Schema({
   description: { type: String, required: true }, //name displayed on screen
   price: { type: Number, required: true }, //a brief description of the user
   brand: { type: String, required: true }, //name displayed on screen
-  specs: { type: [String], required: true }, //list of product's specs
   category: { type: ObjectId, required: true }, //category of the product
   date: { type: Date, default: Date.now }, //the date of creation of the product
 });

@@ -7,7 +7,6 @@ router.post("/create", async (req, res) => {
     description: req.body.description,
     price: req.body.price,
     brand: req.body.brand,
-    specs: req.body.specs,
     category: req.body.category,
   });
   try {
