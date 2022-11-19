@@ -73,14 +73,18 @@ router.post("/purchasecart/:user_id", async (req, res) => {
             return res.status(401).json({ message: "Usuario no existe" });
         }
 
+        //Get ids products from user cart
         const productsIdsInCart = await cartModel.find({ 
             user_id: req.params.user_id
         });
 
+        //Get products docs
         const products = await productModel.find({ _id : { $in: productsIdsInCart } });
 
+        //Get total of products list
         const total = products.reduce((a,c)=>a+c.price,0);
 
+        //Save it in historyModel
         const historyModel = new historyModel({
             user_id: req.params.user_id,
             products: products,
@@ -88,7 +92,7 @@ router.post("/purchasecart/:user_id", async (req, res) => {
             date: Date.now()
         });
 
-        const result = historyModel.save();
+        const result = await historyModel.save();
 
         //Delete the products from the user's cart
         await cartModel.deleteMany({ 
