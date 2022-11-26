@@ -74,9 +74,17 @@ router.post("/purchasecart/:user_id", async (req, res) => {
         }
 
         //Get ids products from user cart
-        const productsIdsInCart = await cartModel.find({ 
+        let productsIdsInCart = await cartModel.find({ 
             user_id: req.params.user_id
         });
+
+        if (productsIdsInCart.length < 1) {
+            return res.status(401).json({ message: "El carrito está vacio" });
+        }
+
+        productsIdsInCart = productsIdsInCart.map(p => p.product_id)
+
+        console.log(productsIdsInCart);
 
         //Get products docs
         const products = await productModel.find({ _id : { $in: productsIdsInCart } });
@@ -85,14 +93,14 @@ router.post("/purchasecart/:user_id", async (req, res) => {
         const total = products.reduce((a,c)=>a+c.price,0);
 
         //Save it in historyModel
-        const historyModel = new historyModel({
+        const history = new historyModel({
             user_id: req.params.user_id,
             products: products,
             total: total,
             date: Date.now()
         });
 
-        const result = await historyModel.save();
+        const result = await history.save();
 
         //Delete the products from the user's cart
         await cartModel.deleteMany({ 
