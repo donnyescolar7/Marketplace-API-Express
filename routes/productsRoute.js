@@ -20,11 +20,19 @@ router.post("/create", async (req, res) => {
 router.get("/readOne/:id", async (req, res) => {
   try {
     const product = await productModel.findById(req.params.id);
-    res.status(200).json({
+
+    if (!product) {
+      return res.status(404).json({
+        result: "Product not found"
+      })
+    }
+
+    return res.status(200).json({
       result: product,
     });
+
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(400).json({ message: error.message });
   }
 });
 //READ ALL PRODUCTS
@@ -48,7 +56,7 @@ router.patch("/update/:id", async (req, res) => {
       result: "Product updated successfully",
     });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(404).json({ message: error.message });
   }
 });
 //DELETE PRODUCT BY PRODUCT ID

@@ -38,5 +38,5 @@ app.use("/auth", verifyToken, authRoute)
 const cartRoute = require('./routes/cartRoute')
 app.use("/cart", verifyToken, cartRoute)
 
-// OPENING APP PORT
-app.listen(3000, () => console.log(`\nServer Started at ${3000}`))
+module.exports = app
+
