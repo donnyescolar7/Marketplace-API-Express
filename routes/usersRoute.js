@@ -12,7 +12,7 @@ router.post("/create", async (req, res) => {
   });
   try {
     await user.save();
-    res.status(200).json({ message: "User created successfully" });
+    res.status(200).json({ message: "User created successfully", user: user});
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
@@ -56,10 +56,10 @@ router.patch("/update/:id", async (req, res) => {
   }
 });
 
-//DELETE USER BY USER ID
-router.delete("/delete/:id", async (req, res) => {
+//DELETE USER BY EMAIL
+router.delete("/delete/:email", async (req, res) => {
   try {
-    await userModel.findByIdAndDelete({ id: req.params.id });
+    await userModel.findOneAndDelete({email: req.params.email});
     res.status(200).json({
       result: "User deleted successfully",
     });
