@@ -1,6 +1,7 @@
 const express = require("express");
 const categoryModel = require("../models/categoryModel");
 const router = express.Router();
+
 //CREATE CATEGORY
 router.post("/create", async (req, res) => {
   const category = new categoryModel({
@@ -13,6 +14,7 @@ router.post("/create", async (req, res) => {
     res.status(400).json({ message: error.message });
   }
 });
+
 //READ ONE CATEGORY BY CATEGORY ID
 router.get("/readOne/:id", async (req, res) => {
   try {
@@ -24,6 +26,7 @@ router.get("/readOne/:id", async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 });
+
 //READ ALL CATEGORIES
 router.get("/readAll", async (req, res) => {
   try {
@@ -35,6 +38,7 @@ router.get("/readAll", async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 });
+
 //UPDATE CATEGORY BY CATEGORY ID
 router.patch("/update/:id", async (req, res) => {
   try {
@@ -48,6 +52,7 @@ router.patch("/update/:id", async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 });
+
 //DELETE CATEGORY BY CATEGORY ID
 router.delete("/delete/:id", async (req, res) => {
   try {
