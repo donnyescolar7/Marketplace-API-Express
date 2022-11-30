@@ -2,13 +2,20 @@ const app = require('../index')
 const supertest = require('supertest')
 const request = supertest(app)
 
-describe('Products Routes', function () {
-    it('Get All Products', async () => {
-        const response = await request.get('/products/readAll')
+describe('Users Routes', function () {
+    it('Get All Users', async () => {
+        const response = await request.get('/users/readAll')
+        expect(response.status).toBe(200)
+    })
+    
+    it('Get User by Id', async () => {
+        const response = await request.get('/users/readOne/637170e6d43d1235a71cb6e4')
         expect(response.status).toBe(200)
     })
 
-    it('Create Product', async () => {
+
+
+    /*it('Create Product', async () => {
         const response = await request.post('/products/create')
         expect(response.status).toBe(401)
     })
@@ -31,7 +38,7 @@ describe('Products Routes', function () {
     it('Delete by Id Empty no Auth', async () => {
         const response = await request.delete('/products/delete/')
         expect(response.status).toBe(401)
-    })
+    })*/
 
 })
 

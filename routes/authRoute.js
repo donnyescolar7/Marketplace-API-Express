@@ -15,7 +15,7 @@ router.post('/login', async (req, res) => {
     }
 
     if(usuario.password != req.body.password){
-        res.status(200).json({ message: "Contraseña Incorrecta" })
+        res.status(404).json({ message: "Contraseña Incorrecta" })
         return
     }
 
