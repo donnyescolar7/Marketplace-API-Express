@@ -11,8 +11,8 @@ router.post("/create", async (req, res) => {
     text: req.body.text,
   });
   try {
-    await review.save();
-    res.status(200).json({ message: "Review created successfully" });
+    const doc = await review.save();
+    res.status(200).json({ message: "Review created successfully", data: doc });
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
@@ -42,7 +42,7 @@ router.get("/readAll", async (req, res) => {
 //DELETE REVIEW BY REVIEW ID
 router.delete("/delete/:id", async (req, res) => {
   try {
-    await reviewModel.findByIdAndDelete({ id: req.params.id });
+    await reviewModel.findByIdAndDelete(req.params.id);
     res.status(200).json({
       result: "Review deleted successfully",
     });
