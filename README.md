@@ -10,4 +10,5 @@ Un proyecto para la asignatura Desarrollo de Aplicaciones Web Backend
 - Clonar el repositorio
 - Instalar las dependencias usando el comando $npm i express mongoose nodemon
 - Ejecutar la aplicación usando $npm start
+- Las pruebas se realizan usando $npm test
 - Diviertase utilizando la API Amazonas!
