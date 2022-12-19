@@ -1,4 +1,5 @@
 const express = require("express");
+const verifyToken = require("../middleware/authMiddleware");
 const userModel = require("../models/userModel");
 const router = express.Router();
 
@@ -43,7 +44,7 @@ router.get("/readAll", async (req, res) => {
 });
 
 //UPDATE USER BY USER ID
-router.patch("/update/:id", async (req, res) => {
+router.patch("/update/:id", verifyToken, async (req, res) => {
   try {
     const user = await userModel.findByIdAndUpdate(req.params.id, {
       $set: req.body,
@@ -57,7 +58,7 @@ router.patch("/update/:id", async (req, res) => {
 });
 
 //DELETE USER BY EMAIL
-router.delete("/delete/:email", async (req, res) => {
+router.delete("/delete/:email", verifyToken, async (req, res) => {
   try {
     await userModel.findOneAndDelete({email: req.params.email});
     res.status(200).json({

@@ -1,9 +1,10 @@
 const express = require("express");
+const verifyToken = require("../middleware/authMiddleware");
 const categoryModel = require("../models/categoryModel");
 const router = express.Router();
 
 //CREATE CATEGORY
-router.post("/create", async (req, res) => {
+router.post("/create", verifyToken, async (req, res) => {
   const category = new categoryModel({
     category: req.body.category
   });
@@ -40,7 +41,7 @@ router.get("/readAll", async (req, res) => {
 });
 
 //UPDATE CATEGORY BY CATEGORY ID
-router.patch("/update/:id", async (req, res) => {
+router.patch("/update/:id", verifyToken, async (req, res) => {
   try {
     const category = await categoryModel.findByIdAndUpdate(req.params.id, {
       $set: req.body,
@@ -54,7 +55,7 @@ router.patch("/update/:id", async (req, res) => {
 });
 
 //DELETE CATEGORY BY CATEGORY ID
-router.delete("/delete/:id", async (req, res) => {
+router.delete("/delete/:id", verifyToken, async (req, res) => {
   try {
     await categoryModel.findByIdAndDelete({ id: req.params.id });
     res.status(200).json({

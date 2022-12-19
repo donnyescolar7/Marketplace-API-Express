@@ -1,8 +1,10 @@
 const express = require("express");
+const verifyToken = require("../middleware/authMiddleware");
 const productModel = require("../models/productModel");
+const mongoose = require('mongoose');
 const router = express.Router();
 //CREATE PRODUCT
-router.post("/create", async (req, res) => {
+router.post("/create", verifyToken, async (req, res) => {
   const product = new productModel({
     description: req.body.description,
     price: req.body.price,
@@ -47,7 +49,7 @@ router.get("/readAll", async (req, res) => {
   }
 });
 //UPDATE PRODUCT BY PRODUCT ID
-router.patch("/update/:id", async (req, res) => {
+router.patch("/update/:id", verifyToken, async (req, res) => {
   try {
     const product = await productModel.findByIdAndUpdate(req.params.id, {
       $set: req.body,
@@ -60,9 +62,9 @@ router.patch("/update/:id", async (req, res) => {
   }
 });
 //DELETE PRODUCT BY PRODUCT ID
-router.delete("/delete/:id", async (req, res) => {
+router.delete("/delete/:id", verifyToken, async (req, res) => {
   try {
-    await productModel.findByIdAndDelete({ id: req.params.id });
+    await productModel.findByIdAndDelete({ _id: mongoose.Types.ObjectId(req.params.id) });
     res.status(200).json({
       result: "Product deleted successfully",
     });

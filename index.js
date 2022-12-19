@@ -21,22 +21,22 @@ mongoose.connect("mongodb+srv://vrmedina:admin@cluster0.9aoeewj.mongodb.net/Amaz
 
 // ROUTES DECLARATION
 const usersRoute = require('./routes/usersRoute')
-app.use("/users", verifyToken, usersRoute)
+app.use("/users", usersRoute)
 
 const productsRoute = require('./routes/productsRoute')
-app.use("/products", verifyToken, productsRoute)
+app.use("/products", productsRoute)
 
 const categoriesRoute = require('./routes/categoriesRoute')
-app.use("/categories", verifyToken, categoriesRoute)
+app.use("/categories", categoriesRoute)
 
 const reviewsRoute = require('./routes/reviewsRoute')
-app.use("/reviews", verifyToken, reviewsRoute)
+app.use("/reviews", reviewsRoute)
 
 const authRoute = require('./routes/authRoute')
-app.use("/auth", verifyToken, authRoute)
+app.use("/auth", authRoute)
 
 const cartRoute = require('./routes/cartRoute')
-app.use("/cart", verifyToken, cartRoute)
+app.use("/cart", cartRoute)
 
 module.exports = app
 

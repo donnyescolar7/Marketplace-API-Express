@@ -1,8 +1,9 @@
 const express = require("express");
+const verifyToken = require("../middleware/authMiddleware");
 const reviewModel = require("../models/reviewModel");
 const router = express.Router();
 //CREATE REVIEW
-router.post("/create", async (req, res) => {
+router.post("/create", verifyToken, async (req, res) => {
   const review = new reviewModel({
     user: req.body.user,
     product: req.body.product,
@@ -40,7 +41,7 @@ router.get("/readAll", async (req, res) => {
   }
 });
 //DELETE REVIEW BY REVIEW ID
-router.delete("/delete/:id", async (req, res) => {
+router.delete("/delete/:id", verifyToken, async (req, res) => {
   try {
     await reviewModel.findByIdAndDelete(req.params.id);
     res.status(200).json({
